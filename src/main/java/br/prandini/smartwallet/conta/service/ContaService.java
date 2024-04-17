@@ -10,6 +10,7 @@ import br.prandini.smartwallet.conta.domain.dto.ContaInput;
 import br.prandini.smartwallet.conta.domain.dto.ContaOutput;
 import br.prandini.smartwallet.conta.repository.ContaRepository;
 import br.prandini.smartwallet.conta.service.actions.ContaCreator;
+import br.prandini.smartwallet.conta.service.actions.ContaGetter;
 import br.prandini.smartwallet.conta.service.actions.ContaValidator;
 import jakarta.annotation.Resource;
 import org.springframework.data.domain.Page;
@@ -27,14 +28,17 @@ public class ContaService {
     private ContaCreator creator;
 
     @Resource
+    private ContaGetter getter;
+
+    @Resource
     private ContaValidator validator;
 
     public Page<ContaOutput> getAll(Pageable pageable){
-        return repository.findAll(pageable).map(ContaConverter::toOutput);
+        return getter.getAll(pageable).map(ContaConverter::toOutput);
     }
 
     public ContaOutput create(ContaInput input){
-        validator.validarCriacao(input);
+//        validator.validarCriacao(input);
         return ContaConverter.toOutput(creator.criarConta(input));
     }
 }

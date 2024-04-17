@@ -8,7 +8,7 @@ package br.prandini.smartwallet.lancamento.domain;
 import br.prandini.smartwallet.conta.domain.Conta;
 import br.prandini.smartwallet.transacao.domain.Transacao;
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "LANCAMENTO")
-@Getter
+@Data
 public class Lancamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,9 +37,6 @@ public class Lancamento {
 
     @ManyToOne
     private Conta conta;
-
-    @OneToMany
-    private List<Transacao> transacoes;
 
     @Column(name = "DESCRICAO")
     private String descricao;

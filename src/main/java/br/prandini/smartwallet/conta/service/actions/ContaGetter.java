@@ -2,25 +2,27 @@ package br.prandini.smartwallet.conta.service.actions;
 
 /*
  * @author prandini
- * created 4/5/24
+ * created 4/16/24
  */
 
 import br.prandini.smartwallet.conta.domain.Conta;
-import br.prandini.smartwallet.conta.domain.dto.ContaInput;
 import br.prandini.smartwallet.conta.repository.ContaRepository;
 import jakarta.annotation.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ContaCreator {
+public class ContaGetter {
 
     @Resource
     private ContaRepository repository;
 
-    public Conta criarConta(ContaInput input){
-        return repository.save(Conta.builder()
-                        .banco(input.getBanco())
-                        .nome(input.getNome())
-                .build());
+    public Page<Conta> getAll(Pageable pageable){
+        return repository.findAll(pageable);
+    }
+
+    public Conta getContaByFilter(String filter){
+        return repository.getContaByFilter(filter);
     }
 }

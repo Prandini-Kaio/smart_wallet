@@ -7,7 +7,10 @@ package br.prandini.smartwallet.conta.domain;
 
 import br.prandini.smartwallet.lancamento.domain.Lancamento;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +18,9 @@ import java.util.List;
 @Entity
 @Table(name = "CONTA")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Conta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -21,30 +21,7 @@ public class ContaConverter {
                 .id(conta.getId())
                 .banco(conta.getBanco())
                 .nome(conta.getNome())
-                .totalLancamentos(conta.getLancamentos().size())
+                .totalLancamentos(conta.getLancamentos() == null ? 0 : conta.getLancamentos().size())
                 .build();
     }
-
-//    private static LancamentoOutput toLancamentoOutput(Lancamento lancamento){
-//        return LancamentoOutput.builder()
-//                .id(lancamento.getId())
-//                .tipoLancamento(lancamento.getTipoLancamento())
-//                .valor(lancamento.getValor())
-//                .dtCriacao(lancamento.getDtCriacao())
-//                .parcelas(lancamento.getParcelas())
-//                .transacoes(lancamento.getTransacoes()
-//                        .stream()
-//                        .map(ContaConverter::toTransacaoOutput)
-//                        .toList())
-//                .descricao(lancamento.getDescricao())
-//                .build();
-//    }
-//
-//    private static TransacaoOutput toTransacaoOutput(Transacao transacao){
-//        return TransacaoOutput.builder()
-//                .id(transacao.getId())
-//                .valor(transacao.getValor())
-//                .dtVencimento(transacao.getDtVencimento())
-//                .build();
-//    }
 }

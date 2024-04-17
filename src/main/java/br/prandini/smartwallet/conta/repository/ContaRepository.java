@@ -3,6 +3,7 @@ package br.prandini.smartwallet.conta.repository;
 import br.prandini.smartwallet.conta.domain.Conta;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /*
@@ -11,5 +12,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ContaRepository extends JpaRepository<Conta, Long> {
-    boolean findByNomeAndBanco(String nome, String banco);
+
+    @Query("SELECT c FROM Conta c WHERE lower(c.nome) LIKE CONCAT('%', LOWER(:filter), '%') OR lower(c.banco) LIKE CONCAT('%', LOWER(:filter),'%')")
+    Conta getContaByFilter(String filter);
 }

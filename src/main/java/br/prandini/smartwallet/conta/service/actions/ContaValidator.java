@@ -17,7 +17,7 @@ public class ContaValidator {
     private ContaRepository repository;
 
     public void validarCriacao(ContaInput input){
-        if(repository.findByNomeAndBanco(input.getNome(), input.getBanco()))
-            throw new RuntimeException("Já existe conta cadastrada com nome " + input.getNome() + " para este banco.");
+//        if(repository.findContaByNomeAndBanco(input.getNome(), input.getBanco()))
+//            throw new RuntimeException("Já existe conta cadastrada com nome " + input.getNome() + " para este banco.");
     }
 }

@@ -7,11 +7,14 @@ package br.prandini.smartwallet.conta.domain.dto;
 
 import br.prandini.smartwallet.lancamento.domain.dto.LancamentoOutput;
 import lombok.Builder;
+import lombok.Getter;
 
 import java.util.List;
 
 @Builder
+@Getter
 public class ContaOutput {
+
     private Long id;
     private String banco;
     private String nome;
