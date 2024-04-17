@@ -1,6 +1,7 @@
 package br.prandini.smartwallet.transacao.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import javax.annotation.processing.Generated;
 import java.math.BigDecimal;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "TRANSACAO")
 @SequenceGenerator(name = "SEQ_TRNS")
+@Getter
 public class Transacao {
 
     @Id

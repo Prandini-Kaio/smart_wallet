@@ -7,11 +7,14 @@ package br.prandini.smartwallet.conta.domain;
 
 import br.prandini.smartwallet.lancamento.domain.Lancamento;
 import jakarta.persistence.*;
+import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "CONTA")
+@Data
 public class Conta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,5 +27,5 @@ public class Conta {
     private String nome;
 
     @OneToMany
-    private List<Lancamento> lancamentos;
+    private List<Lancamento> lancamentos = new ArrayList<>();
 }
