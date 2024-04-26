@@ -1,6 +1,7 @@
 package br.prandini.smartwallet.transacao.controller;
 
 import br.prandini.smartwallet.transacao.converter.TransacaoConverter;
+import br.prandini.smartwallet.transacao.domain.TransacaoStatusEnum;
 import br.prandini.smartwallet.transacao.domain.dto.TransacaoOutput;
 import br.prandini.smartwallet.transacao.repository.TransacaoRepository;
 import br.prandini.smartwallet.transacao.service.TransacaoService;
@@ -35,8 +36,19 @@ public class TransacaoController {
         );
     }
 
+    @GetMapping("/vencimento")
+    public ResponseEntity<Page<TransacaoOutput>> searchByMonth(@RequestParam Integer month){
+        return ResponseEntity.ok().body(service.findByMonth(month));
+    }
+
     @GetMapping("/filter")
     public ResponseEntity<Page<TransacaoOutput>> searchByFilter(@RequestParam String filter){
         return ResponseEntity.ok().body(service.findByFilter(filter));
     }
+
+    @GetMapping("/status")
+    public ResponseEntity<Page<TransacaoOutput>> searchByStatus(@RequestParam TransacaoStatusEnum status){
+        return ResponseEntity.ok().body(service.findByStatus(status));
+    }
+
 }

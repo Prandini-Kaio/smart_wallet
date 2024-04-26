@@ -21,6 +21,7 @@ public class LancamentoOutput {
     private Long id;
     private TipoLancamentoEnum tipoLancamento;
     private BigDecimal valor;
+    private String conta;
     private LocalDateTime dtCriacao;
     private int parcelas;
     private String descricao;

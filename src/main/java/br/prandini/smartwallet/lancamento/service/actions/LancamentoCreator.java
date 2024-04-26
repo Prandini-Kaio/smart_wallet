@@ -1,7 +1,10 @@
 package br.prandini.smartwallet.lancamento.service.actions;
 
+import br.prandini.smartwallet.conta.domain.Conta;
 import br.prandini.smartwallet.conta.service.actions.ContaGetter;
+import br.prandini.smartwallet.conta.service.actions.ContaUpdater;
 import br.prandini.smartwallet.lancamento.domain.Lancamento;
+import br.prandini.smartwallet.lancamento.domain.TipoLancamentoEnum;
 import br.prandini.smartwallet.lancamento.domain.dto.LancamentoInputDTO;
 import br.prandini.smartwallet.lancamento.repository.LancamentoRepository;
 import br.prandini.smartwallet.transacao.service.actions.TransacaoCreator;
@@ -25,27 +28,38 @@ public class LancamentoCreator {
     private ContaGetter contaGetter;
 
     @Resource
+    private ContaUpdater contaUpdater;
+
+    @Resource
     private TransacaoCreator transacaoCreator;
 
     public Lancamento criarLancamento(LancamentoInputDTO input) {
-        Lancamento lancamento = new Lancamento();
 
-        lancamento.setTipoLancamento(input.getTipoLancamento());
-        lancamento.setValor(input.getValor());
+        Conta conta = contaGetter.getContaByFilter(input.getConta());
 
-        lancamento.setDtCriacao(LocalDateTime.now());
-        lancamento.setParcelas(input.getParcelas());
-
-        // Procura por qualquer conta parecida com o input
-        lancamento.setConta(contaGetter.getContaByFilter(input.getConta()));
-
-        lancamento.setDescricao(input.getDescricao());
-
-        lancamento = repository.save(lancamento);
+        Lancamento lancamento = repository.save(buildLancamento(input, conta));
 
         transacaoCreator.criarTransacoes(lancamento);
 
-        return repository.save(lancamento);
+        if(input.getTipoLancamento() == TipoLancamentoEnum.SAIDA)
+            contaUpdater.atualizaLancamentoSaida(conta.getId(), lancamento);
+        else{
+            contaUpdater.atualizaLancamentoEntrada(conta.getId(), lancamento.getValor());
+        }
+
+        return lancamento;
+    }
+
+    private Lancamento buildLancamento(LancamentoInputDTO input, Conta conta){
+        return Lancamento.builder()
+                .tipoLancamento(input.getTipoLancamento())
+                .valor(input.getValor())
+                .dtCriacao(LocalDateTime.now())
+                .parcelas(input.getParcelas())
+                .conta(conta)
+                .descricao(input.getDescricao())
+                .build();
+
     }
 
 }

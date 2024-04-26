@@ -12,6 +12,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,8 @@ public class Conta {
 
     @Column(name = "NOME")
     private String nome;
+
+    private BigDecimal saldoParcial;
 
     @OneToMany
     private List<Lancamento> lancamentos = new ArrayList<>();

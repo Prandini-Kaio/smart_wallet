@@ -8,7 +8,7 @@ package br.prandini.smartwallet.lancamento.domain;
 import br.prandini.smartwallet.conta.domain.Conta;
 import br.prandini.smartwallet.transacao.domain.Transacao;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -16,7 +16,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "LANCAMENTO")
-@Data
+@Getter @Setter
+@Builder
+@NoArgsConstructor @AllArgsConstructor
 public class Lancamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

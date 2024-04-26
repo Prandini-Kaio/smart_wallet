@@ -11,6 +11,8 @@ import br.prandini.smartwallet.conta.repository.ContaRepository;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+
 @Component
 public class ContaCreator {
 
@@ -21,6 +23,7 @@ public class ContaCreator {
         return repository.save(Conta.builder()
                         .banco(input.getBanco())
                         .nome(input.getNome())
+                        .saldoParcial(BigDecimal.ZERO)
                 .build());
     }
 }

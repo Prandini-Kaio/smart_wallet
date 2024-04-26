@@ -16,6 +16,7 @@ public class LancamentoConverter {
                 .tipoLancamento(lancamento.getTipoLancamento())
                 .valor(lancamento.getValor())
                 .dtCriacao(lancamento.getDtCriacao())
+                .conta(lancamento.getConta().getBanco() + " - " + lancamento.getConta().getNome())
                 .parcelas(lancamento.getParcelas())
                 .descricao(lancamento.getDescricao())
                 .build();

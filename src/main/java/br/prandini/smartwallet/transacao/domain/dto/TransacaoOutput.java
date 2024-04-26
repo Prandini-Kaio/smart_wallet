@@ -5,10 +5,12 @@ package br.prandini.smartwallet.transacao.domain.dto;
  * created 4/5/24
  */
 
+import br.prandini.smartwallet.transacao.domain.TransacaoStatusEnum;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Builder
@@ -18,5 +20,9 @@ public class TransacaoOutput {
 
     private BigDecimal valor;
 
-    private LocalDateTime dtVencimento;
+    private TransacaoStatusEnum status;
+
+    private LocalDate dtVencimento;
+
+    private String descricao;
 }

@@ -7,6 +7,7 @@ package br.prandini.smartwallet.transacao.service.actions;
 
 import br.prandini.smartwallet.lancamento.domain.Lancamento;
 import br.prandini.smartwallet.transacao.domain.Transacao;
+import br.prandini.smartwallet.transacao.domain.TransacaoStatusEnum;
 import br.prandini.smartwallet.transacao.repository.TransacaoRepository;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
@@ -32,10 +33,13 @@ public class TransacaoCreator {
         BigDecimal valorPorParcela = lancamento.getValor().divide(BigDecimal.valueOf(parcelas), RoundingMode.CEILING);
 
         for(int i = 0; i < lancamento.getParcelas(); i++){
+            int curParcela = i+1;
             transacoes.add(Transacao.builder()
                             .valor(valorPorParcela)
                             .dtVencimento(calcularDataVencimento(transacoes))
                             .lancamento(lancamento)
+                            .status(TransacaoStatusEnum.PENDENTE)
+                            .descricao(lancamento.getDescricao() + " [" + curParcela + " / " + parcelas + "]")
                     .build());
         }
 
@@ -45,8 +49,8 @@ public class TransacaoCreator {
     }
 
     private LocalDateTime calcularDataVencimento(List<Transacao> transacoes){
-        if(transacoes.size() < 1)
-            return LocalDateTime.now();
+        if(transacoes.isEmpty())
+            return LocalDateTime.now().plusMonths(1);
 
         LocalDateTime dtTime = transacoes.get(transacoes.size()-1).getDtVencimento();
 

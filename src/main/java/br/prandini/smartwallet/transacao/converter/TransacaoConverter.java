@@ -18,8 +18,10 @@ public class TransacaoConverter {
     public static TransacaoOutput toOutput(Transacao transacao){
         return TransacaoOutput.builder()
                 .id(transacao.getId())
+                .status(transacao.getStatus())
                 .valor(transacao.getValor())
-                .dtVencimento(transacao.getDtVencimento())
+                .dtVencimento(transacao.getDtVencimento().toLocalDate())
+                .descricao(transacao.getDescricao())
                 .build();
     }
 }

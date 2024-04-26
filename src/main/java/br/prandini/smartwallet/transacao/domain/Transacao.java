@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.annotation.processing.Generated;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -34,7 +33,14 @@ public class Transacao {
     @Column(name = "DATA_VENCIMENTO")
     private LocalDateTime dtVencimento;
 
+    @Enumerated
+    @Column(name = "STATUS")
+    private TransacaoStatusEnum status;
+
     @JoinColumn(name = "LANCAMENTO_ID")
     @ManyToOne
     private Lancamento lancamento;
+
+    @Column(name = "DESCRICAO")
+    private String descricao;
 }

@@ -8,6 +8,8 @@ package br.prandini.smartwallet.conta.domain.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
+import java.math.BigDecimal;
+
 @Getter
 public class ContaInput {
 
@@ -18,5 +20,4 @@ public class ContaInput {
 
     @Schema(example = "CORRENTE")
     private String nome;
-
 }

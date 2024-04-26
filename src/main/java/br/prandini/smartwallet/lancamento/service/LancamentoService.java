@@ -11,6 +11,7 @@ import br.prandini.smartwallet.lancamento.domain.dto.LancamentoInputDTO;
 import br.prandini.smartwallet.lancamento.domain.dto.LancamentoOutput;
 import br.prandini.smartwallet.lancamento.repository.LancamentoRepository;
 import br.prandini.smartwallet.lancamento.service.actions.LancamentoCreator;
+import br.prandini.smartwallet.lancamento.service.actions.LancamentoValidator;
 import jakarta.annotation.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +26,9 @@ public class LancamentoService {
     private LancamentoCreator creator;
 
     @Resource
+    LancamentoValidator validator;
+
+    @Resource
     private LancamentoRepository repository;
 
     public Page<LancamentoOutput> findAll(Pageable pageable){
@@ -32,6 +36,7 @@ public class LancamentoService {
     }
 
     public LancamentoOutput criarLancamento(LancamentoInputDTO input) {
+        validator.validarCriacao(input);
         return LancamentoConverter.toOutput(creator.criarLancamento(input));
     }
 }
