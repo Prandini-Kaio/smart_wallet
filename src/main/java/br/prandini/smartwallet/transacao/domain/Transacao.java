@@ -2,10 +2,7 @@ package br.prandini.smartwallet.transacao.domain;
 
 import br.prandini.smartwallet.lancamento.domain.Lancamento;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -17,10 +14,9 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "TRANSACAO")
 @SequenceGenerator(name = "SEQ_TRNS")
-@Getter
+@Getter @Setter
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 public class Transacao {
 
     @Id

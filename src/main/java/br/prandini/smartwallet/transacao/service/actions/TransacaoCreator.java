@@ -39,7 +39,7 @@ public class TransacaoCreator {
                             .dtVencimento(calcularDataVencimento(transacoes))
                             .lancamento(lancamento)
                             .status(TransacaoStatusEnum.PENDENTE)
-                            .descricao(lancamento.getDescricao() + " [" + curParcela + " / " + parcelas + "]")
+                            .descricao(" [" + curParcela + " / " + parcelas + "]")
                     .build());
         }
 

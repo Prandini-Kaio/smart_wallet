@@ -15,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/${base.path}/lancamento")
 public class LancamentoController {
@@ -25,6 +27,11 @@ public class LancamentoController {
     @GetMapping
     public ResponseEntity<Page<LancamentoOutput>> searchAll(Pageable pageable){
         return ResponseEntity.ok().body(service.findAll(pageable));
+    }
+
+    @GetMapping("/vencimento")
+    public ResponseEntity<List<LancamentoOutput>> searchByMes(@RequestParam Integer mes){
+        return ResponseEntity.ok().body(service.findByVencimento(mes));
     }
 
     @PostMapping

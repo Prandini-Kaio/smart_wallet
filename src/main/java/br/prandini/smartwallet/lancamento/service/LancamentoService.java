@@ -18,6 +18,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.List;
 
 @Service
 public class LancamentoService {
@@ -38,5 +40,9 @@ public class LancamentoService {
     public LancamentoOutput criarLancamento(LancamentoInputDTO input) {
         validator.validarCriacao(input);
         return LancamentoConverter.toOutput(creator.criarLancamento(input));
+    }
+
+    public List<LancamentoOutput> findByVencimento(Integer mes) {
+        return repository.findByDtCriacao(mes).stream().map(LancamentoConverter::toOutput).toList();
     }
 }
