@@ -23,5 +23,8 @@ public class LancamentoValidator {
     private void validarEntrada(LancamentoInputDTO input){
         if(input.getParcelas() > 1)
             throw new LancamentoException(LancamentoExceptionMessages.entradaComParcelas());
+
+        if(!input.isDebito())
+            throw new LancamentoException(LancamentoExceptionMessages.entradaCreditoInvalida());
     }
 }

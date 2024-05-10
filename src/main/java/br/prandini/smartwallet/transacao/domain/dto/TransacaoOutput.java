@@ -7,6 +7,7 @@ package br.prandini.smartwallet.transacao.domain.dto;
 
 import br.prandini.smartwallet.transacao.domain.TransacaoStatusEnum;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 
 import java.math.BigDecimal;
@@ -14,7 +15,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Builder
-@Getter
+@Data
 public class TransacaoOutput {
     private Long id;
 
@@ -22,7 +23,7 @@ public class TransacaoOutput {
 
     private TransacaoStatusEnum status;
 
-    private LocalDate dtVencimento;
+    private String dtVencimento;
 
     private String descricao;
 }

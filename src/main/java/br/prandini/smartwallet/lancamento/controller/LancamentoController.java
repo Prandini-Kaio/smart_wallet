@@ -5,6 +5,7 @@ package br.prandini.smartwallet.lancamento.controller;
  * created 4/16/24
  */
 
+import br.prandini.smartwallet.lancamento.domain.dto.LancamentoFilter;
 import br.prandini.smartwallet.lancamento.domain.dto.LancamentoInputDTO;
 import br.prandini.smartwallet.lancamento.domain.dto.LancamentoOutput;
 import br.prandini.smartwallet.lancamento.service.LancamentoService;
@@ -32,6 +33,11 @@ public class LancamentoController {
     @GetMapping("/vencimento")
     public ResponseEntity<List<LancamentoOutput>> searchByMes(@RequestParam Integer mes){
         return ResponseEntity.ok().body(service.findByVencimento(mes));
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<LancamentoOutput>> searchByMes(LancamentoFilter filter){
+        return ResponseEntity.ok().body(service.findByFilter(filter));
     }
 
     @PostMapping

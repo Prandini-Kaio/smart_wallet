@@ -7,10 +7,12 @@ package br.prandini.smartwallet.lancamento.service;
 
 import br.prandini.smartwallet.lancamento.converter.LancamentoConverter;
 import br.prandini.smartwallet.lancamento.domain.Lancamento;
+import br.prandini.smartwallet.lancamento.domain.dto.LancamentoFilter;
 import br.prandini.smartwallet.lancamento.domain.dto.LancamentoInputDTO;
 import br.prandini.smartwallet.lancamento.domain.dto.LancamentoOutput;
 import br.prandini.smartwallet.lancamento.repository.LancamentoRepository;
 import br.prandini.smartwallet.lancamento.service.actions.LancamentoCreator;
+import br.prandini.smartwallet.lancamento.service.actions.LancamentoGetter;
 import br.prandini.smartwallet.lancamento.service.actions.LancamentoValidator;
 import jakarta.annotation.Resource;
 import org.springframework.data.domain.Page;
@@ -28,13 +30,16 @@ public class LancamentoService {
     private LancamentoCreator creator;
 
     @Resource
+    private LancamentoGetter getter;
+
+    @Resource
     LancamentoValidator validator;
 
     @Resource
     private LancamentoRepository repository;
 
     public Page<LancamentoOutput> findAll(Pageable pageable){
-        return repository.findAll(pageable).map(LancamentoConverter::toOutput);
+        return getter.getAll(pageable).map(LancamentoConverter::toOutput);
     }
 
     public LancamentoOutput criarLancamento(LancamentoInputDTO input) {
@@ -44,5 +49,9 @@ public class LancamentoService {
 
     public List<LancamentoOutput> findByVencimento(Integer mes) {
         return repository.findByDtCriacao(mes).stream().map(LancamentoConverter::toOutput).toList();
+    }
+
+    public List<LancamentoOutput> findByFilter(LancamentoFilter filter) {
+        return repository.findByFilter(filter).stream().map(LancamentoConverter::toOutput).toList();
     }
 }

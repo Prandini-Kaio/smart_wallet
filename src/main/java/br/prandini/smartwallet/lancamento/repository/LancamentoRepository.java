@@ -10,7 +10,7 @@ import java.time.Month;
 import java.util.List;
 
 @Repository
-public interface LancamentoRepository extends JpaRepository<Lancamento, Long> {
+public interface LancamentoRepository extends JpaRepository<Lancamento, Long>, LancamentoRepositoryCustom {
 
     @Query("SELECT l FROM Lancamento l WHERE MONTH(l.dtCriacao) = :mes")
     List<Lancamento> findByDtCriacao(Integer mes);

@@ -5,6 +5,7 @@ import br.prandini.smartwallet.conta.service.actions.ContaGetter;
 import br.prandini.smartwallet.conta.service.actions.ContaUpdater;
 import br.prandini.smartwallet.lancamento.domain.Lancamento;
 import br.prandini.smartwallet.lancamento.domain.TipoLancamentoEnum;
+import br.prandini.smartwallet.lancamento.domain.TipoPagamentoEnum;
 import br.prandini.smartwallet.lancamento.domain.dto.LancamentoInputDTO;
 import br.prandini.smartwallet.lancamento.repository.LancamentoRepository;
 import br.prandini.smartwallet.transacao.service.actions.TransacaoCreator;
@@ -53,6 +54,8 @@ public class LancamentoCreator {
     private Lancamento buildLancamento(LancamentoInputDTO input, Conta conta){
         return Lancamento.builder()
                 .tipoLancamento(input.getTipoLancamento())
+                .categoriaLancamento(input.getCategoriaLancamento())
+                .tipoPagamento(input.isDebito() ? TipoPagamentoEnum.DEBITO : TipoPagamentoEnum.CREDITO)
                 .valor(input.getValor())
                 .dtCriacao(LocalDateTime.now())
                 .parcelas(input.getParcelas())

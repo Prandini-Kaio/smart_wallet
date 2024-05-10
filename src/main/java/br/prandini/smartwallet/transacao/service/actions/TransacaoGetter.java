@@ -6,6 +6,7 @@ package br.prandini.smartwallet.transacao.service.actions;
  */
 
 import br.prandini.smartwallet.transacao.domain.Transacao;
+import br.prandini.smartwallet.transacao.domain.TransacaoFilter;
 import br.prandini.smartwallet.transacao.domain.TransacaoStatusEnum;
 import br.prandini.smartwallet.transacao.repository.TransacaoRepository;
 import jakarta.annotation.Resource;
@@ -23,11 +24,11 @@ public class TransacaoGetter {
         return repository.findByVencimento(month);
     }
 
-    public List<Transacao> findByFilter(String filter){
-        return repository.findByFilter(filter);
+    public List<Transacao> findByFilter(TransacaoFilter filter){
+        return repository.findByFilter(filter.getStatus(), filter.getMes());
     }
 
-    public List<Transacao> findByStatus(TransacaoStatusEnum status){
-        return repository.findByStatus(status);
+    public List<Transacao> findByStringFilter(String filter){
+        return repository.findByStringFilter(filter);
     }
 }

@@ -25,8 +25,14 @@ public class Lancamento {
     private Long id;
 
     @Column(name = "TIPO_LANCAMENTO")
-    @Enumerated(value = EnumType.ORDINAL)
+    @Enumerated
     private TipoLancamentoEnum tipoLancamento;
+
+    @Column(name = "CATEGORIA_LANCAMENTO")
+    @Enumerated
+    private CategoriaLancamentoEnum categoriaLancamento;
+
+    private TipoPagamentoEnum tipoPagamento;
 
     @Column(name = "VALOR")
     private BigDecimal valor;

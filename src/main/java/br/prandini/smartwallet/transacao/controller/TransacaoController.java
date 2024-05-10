@@ -1,6 +1,7 @@
 package br.prandini.smartwallet.transacao.controller;
 
 import br.prandini.smartwallet.transacao.converter.TransacaoConverter;
+import br.prandini.smartwallet.transacao.domain.TransacaoFilter;
 import br.prandini.smartwallet.transacao.domain.TransacaoStatusEnum;
 import br.prandini.smartwallet.transacao.domain.dto.TransacaoOutput;
 import br.prandini.smartwallet.transacao.repository.TransacaoRepository;
@@ -9,9 +10,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.annotation.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /*
  * @author prandini
@@ -35,6 +37,12 @@ public class TransacaoController {
         );
     }
 
+    @GetMapping("/filter")
+    @Operation(description = "Retorna as transações com base no status e mes de vencimento")
+    public ResponseEntity<List<TransacaoOutput>> findByVencimento(TransacaoFilter filter){
+        return ResponseEntity.ok().body(service.findByFilter(filter));
+    }
+
     @PutMapping("/pagar")
     @Operation(description = "Paga uma transação em aberto.")
     public ResponseEntity<TransacaoOutput> pagarTransacao(@RequestParam Long id){
@@ -47,16 +55,10 @@ public class TransacaoController {
         return ResponseEntity.ok().body(service.findByMonth(month));
     }
 
-    @GetMapping("/filter")
+    @GetMapping("/stringFilter")
     @Operation(description = "Retorna todas as transações com base em um filtro.")
     public ResponseEntity<Page<TransacaoOutput>> searchByFilter(@RequestParam String filter){
-        return ResponseEntity.ok().body(service.findByFilter(filter));
-    }
-
-    @GetMapping("/status")
-    @Operation(description = "Retorna todas as transações com base no status.")
-    public ResponseEntity<Page<TransacaoOutput>> searchByStatus(@RequestParam TransacaoStatusEnum status){
-        return ResponseEntity.ok().body(service.findByStatus(status));
+        return ResponseEntity.ok().body(service.findByStringFilter(filter));
     }
 
 }
