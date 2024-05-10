@@ -10,6 +10,7 @@ import br.prandini.smartwallet.totalizador.service.TotalizadorService;
 import jakarta.annotation.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,7 +27,7 @@ public class TotalizadorController {
     }
 
     @GetMapping("/balanco/{conta}")
-    public ResponseEntity<TotalizadorBalancoOutput> getTotalizadorBalancoByConta(String conta){
+    public ResponseEntity<TotalizadorBalancoOutput> getTotalizadorBalancoByConta(@PathVariable String conta){
         return ResponseEntity.ok().body(service.getBalancoByConta(conta));
     }
 }
